@@ -1,0 +1,44 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  promptvault:
+    storage:
+      backend: s3
+      s3:
+        endpoint: minio:9000
+        bucket: promptvault
+        prefix: "vault/"
+        access_key: minioadmin
+        secret_key: minioadmin
+        use_ssl: false
+    vault:
+      keys:
+        - gen_ai.system_instructions
+        - gen_ai.input.messages
+        - gen_ai.output.messages
+        - gen_ai.prompt
+        - gen_ai.completion
+      size_threshold: 0
+      mode: replace_with_ref
+    crypto:
+      enable: true
+      key_source: env
+      env_var: PROMPTVAULT_KEY
+      hmac_secret: change-me-in-production
+
+exporters:
+  debug:
+    verbosity: detailed
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [promptvault]
+      exporters: [debug]

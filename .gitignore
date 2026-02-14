@@ -1,0 +1,25 @@
+# Binaries
+otelcol-promptvault
+promptvaultctl
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test
+*.test
+*.out
+coverage.txt
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vault data (local dev)
+/tmp/promptvault/
