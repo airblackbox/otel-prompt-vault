@@ -3,7 +3,9 @@ package promptvaultprocessor
 import (
 	"context"
 
+	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
+	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/ptrace"
 	"go.uber.org/zap"
 )
@@ -47,7 +49,9 @@ func (p *vaultProcessor) Start(_ context.Context, _ component.Host) error {
 
 func (p *vaultProcessor) Shutdown(_ context.Context) error {
 	return nil
-}func (p *vaultProcessor) Capabilities() consumer.Capabilities {
+}
+
+func (p *vaultProcessor) Capabilities() consumer.Capabilities {
 	return consumer.Capabilities{MutatesData: true}
 }
 
@@ -75,7 +79,7 @@ func (p *vaultProcessor) vaultSpan(span ptrace.Span) {
 	}
 	var toVault []vaultEntry
 
-	attrs.Range(func(key string, val ptrace.Value) bool {
+	attrs.Range(func(key string, val pcommon.Value) bool {
 		if !p.keysSet[key] {
 			return true
 		}

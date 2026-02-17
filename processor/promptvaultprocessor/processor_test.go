@@ -55,7 +55,9 @@ func TestVaultReplacesContent(t *testing.T) {
 	if !strings.HasPrefix(promptRef.Str(), "vault://") {
 		t.Errorf("expected vault ref format, got: %s", promptRef.Str())
 	}
-}func TestVaultWritesToDisk(t *testing.T) {
+}
+
+func TestVaultWritesToDisk(t *testing.T) {
 	tmpDir := t.TempDir()
 	vault, _ := NewFilesystemVault(tmpDir)
 
@@ -94,7 +96,9 @@ func TestVaultDeduplication(t *testing.T) {
 	if ref1 != ref2 {
 		t.Errorf("expected same ref for same content, got %s and %s", ref1, ref2)
 	}
-}func TestVaultSkipsSmallContent(t *testing.T) {
+}
+
+func TestVaultSkipsSmallContent(t *testing.T) {
 	tmpDir := t.TempDir()
 	vault, _ := NewFilesystemVault(tmpDir)
 	cfg := createDefaultConfig()
@@ -139,7 +143,9 @@ func TestVaultRemoveMode(t *testing.T) {
 	if _, ok := attrs.Get("gen_ai.prompt.vault_ref"); !ok {
 		t.Error("expected gen_ai.prompt.vault_ref to exist even in remove mode")
 	}
-}func TestVaultRetrieve(t *testing.T) {
+}
+
+func TestVaultRetrieve(t *testing.T) {
 	tmpDir := t.TempDir()
 	vault, _ := NewFilesystemVault(tmpDir)
 
