@@ -38,7 +38,7 @@ processors:
 
 ## Part of the AIR Platform
 
-This processor is one component of the [AIR Blackbox Gateway](https://github.com/nostalgicskinco/air-blackbox-gateway) collector pipeline.
+This processor is one component of the [AIR Blackbox Gateway](https://github.com/airblackbox/gateway) collector pipeline.
 
 ## License
 
